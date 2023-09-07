@@ -4,7 +4,9 @@ import TodoList from './components/TodoList'
 
 const HomePage = () => {
   return (
-    <div><TodoList /></div>
+    <div>
+      <h1>My awsome server action Todos</h1>
+      <TodoList /></div>
   )
 }
 

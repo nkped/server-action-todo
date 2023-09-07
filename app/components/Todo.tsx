@@ -1,8 +1,16 @@
 import React from 'react'
 
-const Todo = () => {
-  return (
-    <div>Todo</div>
+
+
+const Todo = (todo: Todo) => {
+  return ( //form element parent
+    <form>
+      <label></label>
+      <div>
+        <button>Delete</button>
+
+      </div>
+    </form>
   )
 }
 
