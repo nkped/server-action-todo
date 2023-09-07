@@ -1,13 +1,12 @@
 import React from 'react'
+import fetchTodos from '@/lib/fetchTodos'
 
 const TodoList = async () => {
+
+  const todos = await fetchTodos()
   
-    const res = await fetch("http://localhost:3500/todos", { next: { revalidate: 0 }})
-
-    const todos: Todo[] = await res.json()
-
-
-    console.log('todos fromssa wwk todolist', todos)
+  console.log('todos fromssssa wwk todolist', todos)
+  
   return (
     <div>TodoList</div>
   )
