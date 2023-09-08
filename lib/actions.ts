@@ -1,8 +1,5 @@
 'use server'
 
-
-'use server'
-
 import { revalidatePath } from "next/cache"
 
 export async function addTodo(data: FormData) {
@@ -18,6 +15,21 @@ export async function addTodo(data: FormData) {
             userId: 1, title, completed: false,
         })
     })
+
+    revalidatePath('/')
+}
+
+export async function deleteTodo(todo: Todo) {
+    const res = await fetch(`http:localhost:3500/todos/${todo.id}`,{
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application-json'
+        },
+        body: JSON.stringify({
+            id: todo.id
+        })
+    })
+    await res.json()
 
     revalidatePath('/')
 }

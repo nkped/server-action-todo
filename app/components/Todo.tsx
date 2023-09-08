@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import { deleteTodo } from '@/lib/actions'
 
 
 const Todo = (todo: Todo) => {
@@ -9,7 +10,10 @@ const Todo = (todo: Todo) => {
         <Link href={`/edit/${todo.id}`}>{todo.title}</Link>
       </label>
       <div>
-        <button>Delete</button>
+        <button formAction={async () => {
+          'use server'
+          await  deleteTodo(todo)
+        }}>Delete</button>
 
       </div>
     </form>
