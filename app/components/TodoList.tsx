@@ -1,29 +1,26 @@
 import React from 'react'
-import fetchTodos from '@/lib/fetchTodos'
-import Todo from './Todo'
+import Todo from "./Todo"
+import fetchTodos from "@/lib/fetchTodos"
 
-const TodoList = async () => {
+export default async function TodoList() {
+    const todos = await fetchTodos()
 
-  const todos = await fetchTodos()
+    let content
+    if (!todos || todos.length === 0) {
+        content = (
+            <div>No Todos Available</div>
+        )
+    } else {
+        const sortedTodos = todos.reverse()
 
-  let content
+        content = (
+            <div>
+                {sortedTodos.map(todo => (
+                    <Todo key={todo.id} {...todo} />
+                ))}
+            </div>
+        )
+    }
 
-  if(!todos || todos.length === 0) {
-
-    content = ( <p>Sorry, no todos available..</p>)
-  
-  } else {
-    
-    const sortedTodos = todos.reverse()
-    
-    content = (
-      <>
-      {sortedTodos.map((todo) => ( <Todo key={todo.id} {...todo}/>))}      
-      </>
-    )
-  }
-  return content
+    return content
 }
-
-
-export default TodoList

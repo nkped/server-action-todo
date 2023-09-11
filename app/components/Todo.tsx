@@ -1,23 +1,28 @@
 import React from 'react'
 import Link from 'next/link'
-import { deleteTodo } from '@/lib/actions'
+import { deleteTodo } from "@/lib/actions"
+import UpdateCheckbox from "./UpdateCheckbox"
 
+export default function Todo(todo: Todo) {
 
-const Todo = (todo: Todo) => {
-  return ( //form element parent
-    <form>
-      <label htmlFor='completed'>
-        <Link href={`/edit/${todo.id}`}>{todo.title}</Link>
-      </label>
-      <div>
-        <button formAction={async () => {
-          'use server'
-          await  deleteTodo(todo)
-        }}>Delete</button>
+    return (
+        <form>
 
-      </div>
-    </form>
-  )
+            <label htmlFor="completed">
+                <Link href={`/edit/${todo.id}`}>{todo.title}</Link>
+            </label>
+
+            <div>
+                <UpdateCheckbox todo={todo} />
+
+                <button
+                    formAction={async () => {
+                        'use server'
+                        await deleteTodo(todo)
+                    }}>
+                    DELETE
+                </button>
+            </div>
+        </form>
+    )
 }
-
-export default Todo

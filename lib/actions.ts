@@ -2,7 +2,11 @@
 
 import { revalidatePath } from "next/cache"
 
+
+
 export async function addTodo(data: FormData) {
+
+    console.log('this is data from addTodo action fn', data)
 
     const title = data.get("title")
 
@@ -23,7 +27,7 @@ export async function deleteTodo(todo: Todo) {
     const res = await fetch(`http:localhost:3500/todos/${todo.id}`,{
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application-json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             id: todo.id
@@ -33,3 +37,40 @@ export async function deleteTodo(todo: Todo) {
 
     revalidatePath('/')
 }
+
+export async function updateTodo(
+    todo: Todo
+) {
+    const res = await fetch(`http://localhost:3500/todos/${todo.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ...todo, completed: !todo.completed
+        })
+    })
+
+    await res.json()
+    revalidatePath('/')
+}
+
+
+/* export async function updateTodo(todo: Todo) {
+    const res = await fetch(`http://localhost:3500/todos/${todo.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        }, 
+        body: JSON.stringify({
+            ...todo, completed: !todo.completed
+        })
+    })
+    await res.json()
+
+    revalidatePath('/')
+} */
+
+
+
+
